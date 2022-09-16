@@ -1,3 +1,2 @@
 matplotlib
-serial
-serial.tools
+pyserial
