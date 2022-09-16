@@ -4,14 +4,14 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 
-import serial.tools
 import serial
+from serial.tools import list_ports
 import time
 
 st.write('# Hello')
 st.write('This is a streamlit web-app for testing purposes.')
 
-ports = serial.tools.list_ports.comports()
+ports = list_ports.comports()
 serPortsDescription = [p.description for p in ports]
 serPortDescription = st.selectbox('Choose the com port:', serPortsDescription)
 
