@@ -1,11 +1,12 @@
 import streamlit as st
+import matplotlib.pyplot as plt
 from deta import Deta
 
 st.write("# Welcome to our pendulum experiment")
 
 # Data to be written to Deta Base
 with st.form("form"):
-    T = st.number_input("Enter the time period")
+    T = st.number_input("Enter the time period you measured")
     submitted = st.form_submit_button("save")
 
 
@@ -23,8 +24,20 @@ if submitted:
     db.put({"time period": T})
 
 "---"
-"Here's everything stored in the database:"
+"Here's a histogram of the data stored in the database:"
 # This reads all items from the database and displays them to your app.
 # db_content is a list of dictionaries. You can do everything you want with it.
 db_content = db.fetch().items
+
+tArray = []
+for item in db_content:
+    t = item['time period']
+    if t==0:
+        continue
+    tArray.append(item['time period'])
+
+fig, ax = plt.subplots()
+ax.hist(tArray)
+st.pyplot(fig)
+
 st.write(db_content)
