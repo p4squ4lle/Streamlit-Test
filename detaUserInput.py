@@ -1,11 +1,12 @@
 import streamlit as st
 from deta import Deta
 
+st.write("# Welcome to our pendulum experiment")
+
 # Data to be written to Deta Base
 with st.form("form"):
-    name = st.text_input("Your name")
-    age = st.number_input("Your age")
-    submitted = st.form_submit_button("Store in database")
+    T = st.number_input("Enter the time period")
+    submitted = st.form_submit_button("save")
 
 
 # Connect to Deta Base with your Project Key
@@ -19,7 +20,7 @@ db = deta.Base("example-db")
 # write the data from the form to the database.
 # You can store any data you want here. Just modify that dictionary below (the entries between the {}).
 if submitted:
-    db.put({"name": name, "age": age})
+    db.put({"time period": T})
 
 "---"
 "Here's everything stored in the database:"
